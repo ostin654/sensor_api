@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Middleware\JsonBodyParserMiddleware;
-use Slim\App;
+use League\Route\Router;
 
-return function (App $app) {
-    $app->add(JsonBodyParserMiddleware::class);
+return function (Router $router) {
+    $router->middleware(new JsonBodyParserMiddleware());
 };

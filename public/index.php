@@ -2,25 +2,20 @@
 
 declare(strict_types=1);
 
-use DI\ContainerBuilder;
-use Slim\Factory\AppFactory;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use League\Route\Router;
+use Psr\Http\Message\ServerRequestInterface;
 
-require __DIR__ . '/../vendor/autoload.php';
+$container = require __DIR__ . '/../app/bootstrap.php';
 
-$containerBuilder = new ContainerBuilder();
-
-$dependencies = require __DIR__ . '/../app/dependencies.php';
-$dependencies($containerBuilder);
-
-$container = $containerBuilder->build();
-
-AppFactory::setContainer($container);
-$app = AppFactory::create();
+$router = $container->get(Router::class);
 
 $middleware = require __DIR__ . '/../app/middleware.php';
-$middleware($app);
+$middleware($router);
 
 $routes = require __DIR__ . '/../app/routes.php';
-$routes($app);
+$routes($router);
 
-$app->run();
+$response = $router->dispatch($container->get(ServerRequestInterface::class));
+
+$container->get(SapiEmitter::class)->emit($response);

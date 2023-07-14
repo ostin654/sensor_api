@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 use App\Actions\ApiPushAction;
 use App\Actions\SensorReadAction;
-use Slim\App;
-use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use League\Route\RouteGroup;
+use League\Route\Router;
 
-return function (App $app) {
-    $app->group('/api', function (Group $group) {
-        $group->post('/push', ApiPushAction::class);
+return function (Router $router) {
+    $router->group('/api', function (RouteGroup $group) {
+        $group->map('POST', '/push', ApiPushAction::class);
     });
-    $app->group('/sensor', function (Group $group) {
-        $group->get('/read/{sensorIp}', SensorReadAction::class);
+    $router->group('/sensor', function (RouteGroup $group) {
+        $group->map('GET', '/read/{sensorIp}', SensorReadAction::class);
     });
 };

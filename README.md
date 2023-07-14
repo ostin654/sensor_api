@@ -34,6 +34,10 @@ In your DDEV container run [composer](https://getcomposer.org)
 composer install
 ```
 
+### Configure env
+
+Copy `.env.dist` to `.env` and change variables if necessary.
+
 ### Database migration
 
 In your DDEV container run [phinx](https://phinx.org)
@@ -82,11 +86,7 @@ You can add actions in `src/Actions` and define them in `app/routes.php`.
 
 Configure dependencies in `app/dependencies.php`.
 
-More about [Slim](https://www.slimframework.com/docs/v4/).
-
 ### Todo
 
-- add configuration via ENV variables
-- add services and use them in actions (get rid of plain SQL in actions)
 - add ORM, entities
 - make advanced error handling

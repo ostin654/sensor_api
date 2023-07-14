@@ -1,5 +1,7 @@
 <?php
 
+require_once 'app/bootstrap.php';
+
 return
 [
     'paths' => [
@@ -19,12 +21,12 @@ return
             'charset' => 'utf8',
         ],
         'development' => [
-            'adapter' => 'pgsql',
-            'host' => 'db',
-            'name' => 'db',
-            'user' => 'db',
-            'pass' => 'db',
-            'port' => '5432',
+            'adapter' => env('DB_TYPE', 'pgsql'),
+            'host' => env('DB_HOST', 'db'),
+            'name' => env('DB_NAME', 'db'),
+            'user' => env('DB_USER', 'db'),
+            'pass' => env('DB_PASS', 'db'),
+            'port' => env('DB_PORT', '5432'),
         ],
         'testing' => [
             'adapter' => 'mysql',
